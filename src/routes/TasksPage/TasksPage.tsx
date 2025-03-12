@@ -1,7 +1,7 @@
 import styles from "./TasksPage.module.css";
 
 const TasksPage = () => {
-  return <div>hi</div>;
+  return <div className={styles.main}></div>;
 };
 
 export default TasksPage;
