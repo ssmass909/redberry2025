@@ -1,3 +1,15 @@
+:root {
+  --taskCardHeight: 220px;
+  --taskColumnGap: 30px;
+}
+
+* {
+  font-family: FiraGO;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 /* firago-latin-100-normal */
 @font-face {
   font-family: "FiraGO";
