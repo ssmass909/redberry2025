@@ -1,11 +1,11 @@
-import { Task } from "../../types";
+import { TestTask } from "../../types";
 import TaskCard from "../TaskCard/TaskCard";
 import styles from "./TaskColumn.module.css";
 
 interface TaskColumnProps {
   columnColor: string;
   columnName: string;
-  tasks: Task[];
+  tasks: TestTask[];
 }
 
 const TaskColumn = ({ columnColor, columnName, tasks }: TaskColumnProps) => {
