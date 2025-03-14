@@ -1,7 +1,3 @@
-export interface TestTask {
-  id: number;
-}
-
 export interface Status {
   id: number;
   name: string;
@@ -35,6 +31,9 @@ export interface Task {
   priority: Priority;
   department: Department;
   employee: Employee;
+  total_comments: number;
 }
 
 export type ActiveFilter = "DEPARTMENT" | "PRIORITY" | "EMPLOYEE" | null;
+export type FilterOptionType = Partial<Department & Employee & Priority> & { id: number; name: string };
+export type TempFilterOption = "APPLY" | "RESET" | "ADD" | "REMOVE";

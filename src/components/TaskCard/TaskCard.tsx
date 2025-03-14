@@ -1,39 +1,34 @@
+import { Task } from "../../types";
 import styles from "./TaskCard.module.css";
 
 interface TaskCardProps {
-  id: number;
+  task: Task;
   borderColor: string;
   departmentColor: string;
 }
 
-const TaskCard = ({ id, borderColor, departmentColor }: TaskCardProps) => {
+const TaskCard = ({ task, borderColor, departmentColor }: TaskCardProps) => {
   return (
     <div style={{ borderColor: borderColor }} className={styles.main}>
       <div className={styles.top}>
         <div className={styles.priority} style={{ borderColor: "red" }}>
-          <img src="test.svg" alt="priority icon" className={styles.priorityIcon} />
-          <span className={styles.priorityText}>საშუალო</span>
+          <img src={task.priority.icon} alt="priority icon" className={styles.priorityIcon} />
+          <span className={styles.priorityText}>{task.priority.name}</span>
         </div>
         <span className={styles.department} style={{ backgroundColor: departmentColor }}>
-          დიზაინი
+          {task.department.name}
         </span>
-        <span className={styles.dueDate}> 22 იანვ, 2022 </span>
+        <span className={styles.dueDate}> {task.due_date} </span>
       </div>
       <div className={styles.middle}>
-        <h1 className={styles.title}>Redberry-ს საიტის ლენდინგის დიზაინი </h1>
-        <span className={styles.description}>
-          შექმენი საიტის მთავარი გვერდი, რომელიც მოიცავს მთავარ სექციებს, ნავიგაციას.
-        </span>
+        <h1 className={styles.title}>{task.name} </h1>
+        <span className={styles.description}>{task.description}</span>
       </div>
       <div className={styles.bottom}>
-        <img
-          className={styles.avatar}
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3RFDZM21teuCMFYx_AROjt-AzUwDBROFww&s"
-          alt="employee avatar"
-        />
+        <img className={styles.avatar} src={task.employee.avatar} alt="employee avatar" />
         <div className={styles.comments}>
           <img className={styles.commentsIcon} src="comments_icon.svg" alt="comments" />
-          <span className={styles.commentsCount}>8</span>
+          <span className={styles.commentsCount}>{task.total_comments}</span>
         </div>
       </div>
     </div>

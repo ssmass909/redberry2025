@@ -9,29 +9,8 @@
   max-width: 100%;
   margin-right: -2px;
   font-size: 34px;
-}
-
-.filtersContainer {
-  margin-top: 52px;
-  display: flex;
-  align-items: center;
-  padding: 0px;
-  gap: 45px;
-  width: 688px;
-  height: 44px;
-  border: 1px solid #dee2e6;
-  border-radius: 10px;
-}
-
-.filter {
-  all: unset;
-  width: 200px;
-  height: 44px;
-  padding: 10px 18px;
-  gap: 8px;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
+  margin-top: 0;
+  font-weight: 600;
 }
 
 .tasksContainer {

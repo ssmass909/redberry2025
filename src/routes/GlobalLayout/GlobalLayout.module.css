@@ -69,6 +69,7 @@
 .filledBtnInnerContainer {
   width: 100%;
   height: 100%;
+  color: white;
   display: flex;
   align-items: center;
   gap: 4px;

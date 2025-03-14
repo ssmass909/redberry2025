@@ -1,16 +1,19 @@
 import { action, computed, makeObservable, observable } from "mobx";
-import { ActiveFilter, Department, Employee, Priority, Task } from "../types";
+import { ActiveFilter, Department, Employee, TempFilterOption, Priority, Status, Task } from "../types";
 import api from "../utils/api";
+import mutableFilterCopyWithin from "../utils/functions";
 
 class TasksPageStore {
   tasks: Task[] = [];
   priorities: Priority[] = [];
   departments: Department[] = [];
   employees: Employee[] = [];
+  taskStatuses: Status[] = [];
   activeFilter: ActiveFilter = null;
   departmentFilter: Department[] = [];
   priorityFilter: Priority[] = [];
-  employeeFilter: Employee | null = null;
+  employeeFilter: Employee[] = [];
+  tempFilter: (Department | Employee | Priority)[] = [];
 
   constructor() {
     makeObservable(this, {
@@ -22,59 +25,87 @@ class TasksPageStore {
       departmentFilter: observable,
       priorityFilter: observable,
       employeeFilter: observable,
+      tempFilter: observable,
+      taskStatuses: observable,
       setTasks: action,
       setPriorities: action,
       setDepartments: action,
       setActiveFilter: action,
       setEmployees: action,
-      changeDepartmentFilter: action,
-      changePriorityFilter: action,
-      changeEmployeeFilter: action,
+      setTaskStatuses: action,
+      updateFilter: action,
+      setTempFilter: action,
       filteredTasks: computed,
+      currentFilterInfo: computed,
     });
+  }
+
+  get currentFilterInfo() {
+    switch (this.activeFilter) {
+      case "DEPARTMENT":
+        return {
+          options: this.departments,
+          filter: this.departmentFilter,
+        };
+      case "EMPLOYEE":
+        return { options: this.employees, filter: this.employeeFilter };
+      case "PRIORITY":
+        return { options: this.priorities, filter: this.priorityFilter };
+      default:
+        return { options: [], filter: [] };
+    }
   }
 
   get filteredTasks() {
-    return this.tasks.filter((task) => {
-      if (task.employee.id !== this.employeeFilter?.id) return false;
-      if (!this.departmentFilter.includes(task.department)) return false;
-      if (!this.priorityFilter.includes(task.priority)) return false;
-      return true;
-    });
+    const [employeeFilterEmpty, departmentFilterEmpty, priorityFilterEmpty] = [
+      this.employeeFilter.length === 0,
+      this.departmentFilter.length === 0,
+      this.priorityFilter.length === 0,
+    ];
+
+    let result = this.tasks;
+    if (!employeeFilterEmpty) result = result.filter((task) => task.employee.id === this.employeeFilter[0]?.id);
+    if (!departmentFilterEmpty)
+      result = result.filter((task) => this.departmentFilter.map((el) => el.id).includes(task.department.id));
+    if (!priorityFilterEmpty)
+      result = result.filter((task) => this.priorityFilter.map((el) => el.id).includes(task.priority.id));
+
+    return result;
   }
 
-  changeDepartmentFilter(add: boolean, id: number) {
-    if (add) {
-      const department = this.departments.filter((dep) => dep.id === id)[0];
-      if (!department) throw new Error("Something weird happened whilst adding department in filter!");
-      this.departmentFilter.push(department);
-      return;
-    }
-
-    const newValue = this.departmentFilter.filter((dep) => dep.id !== id);
-    this.departmentFilter = newValue;
+  setTempFilter(newValue: typeof this.tempFilter) {
+    this.tempFilter = newValue;
   }
 
-  changePriorityFilter(add: boolean, id: number) {
-    if (add) {
-      const priority = this.priorities.filter((prio) => prio.id === id)[0];
-      if (!priority) throw new Error("Something weird happened whilst adding priority in filter!");
-      this.priorityFilter.push(priority);
-      return;
+  updateFilter(tempFilterOption: TempFilterOption, id: number) {
+    switch (tempFilterOption) {
+      case undefined:
+        break;
+      case "RESET":
+        this.tempFilter.length = 0;
+        return;
+      case "ADD":
+        const addedOption = this.currentFilterInfo.options.filter((op) => op.id === id)[0];
+        if (!addedOption) throw new Error("Something weird happened whilst adding option in filter!");
+        this.tempFilter.push(addedOption);
+        return;
+      case "REMOVE":
+        this.tempFilter = this.tempFilter.filter((op) => op.id !== id);
+        return;
+      case "APPLY":
+        switch (this.activeFilter) {
+          case "DEPARTMENT":
+            this.departmentFilter = this.tempFilter as Department[];
+            break;
+          case "EMPLOYEE":
+            this.employeeFilter = this.tempFilter as Employee[];
+            break;
+          case "PRIORITY":
+            this.priorityFilter = this.tempFilter as Priority[];
+        }
+        this.tempFilter = [];
+        return;
     }
-
-    const newValue = this.priorityFilter.filter((prio) => prio.id !== id);
-    this.priorityFilter = newValue;
-  }
-
-  changeEmployeeFilter(id: number) {
-    if (this.employeeFilter?.id === id) {
-      this.employeeFilter = null;
-      return;
-    }
-
-    const employee = this.employees.filter((emp) => emp.id === id)[0];
-    this.employeeFilter = employee;
   }
 
   setTasks(newValue: Task[]) {
@@ -91,6 +122,10 @@ class TasksPageStore {
 
   setEmployees(newValue: Employee[]) {
     this.employees = newValue;
+  }
+
+  setTaskStatuses(newValue: Status[]) {
+    this.taskStatuses = newValue;
   }
 
   setActiveFilter(newValue: ActiveFilter) {
@@ -130,6 +165,16 @@ class TasksPageStore {
       const employees = (await api.get<Employee[]>("/employees")).data;
       console.log("CLIENT: employees from server:", employees);
       this.setEmployees(employees);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async fetchStatuses() {
+    try {
+      const statuses = (await api.get<Status[]>("/statuses")).data;
+      console.log("CLIENT: statuses from server:", statuses);
+      this.setTaskStatuses(statuses);
     } catch (e) {
       console.error(e);
     }

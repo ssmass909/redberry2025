@@ -1,11 +1,38 @@
 .main {
+  position: absolute;
+  margin-top: 11px;
+  box-sizing: border-box;
   width: 688px;
-  height: 230px;
+  max-height: 300px;
+  padding: 40px 30px 20px 30px;
   border-radius: 10px;
+  border: 0.5px solid #8338ec;
+  display: flex;
+  flex-direction: column;
   gap: 25px;
-  border-width: 0.5px;
-  padding-top: 40px;
-  padding-right: 30px;
-  padding-bottom: 20px;
-  padding-left: 30px;
+  background-color: white;
+  z-index: 99;
+}
+
+.optionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  overflow: auto;
+  background-color: white;
+}
+
+.btn {
+  width: 155px;
+  height: 35px;
+  gap: 10px;
+  border-radius: 20px;
+  padding-top: 8px;
+  padding-right: 20px;
+  padding-bottom: 8px;
+  padding-left: 20px;
+  background: #8338ec;
+  color: white;
+  border: none;
+  margin-left: auto;
 }

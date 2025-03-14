@@ -1,11 +1,11 @@
-import { TestTask } from "../../types";
+import { Task } from "../../types";
 import TaskCard from "../TaskCard/TaskCard";
 import styles from "./TaskColumn.module.css";
 
 interface TaskColumnProps {
   columnColor: string;
   columnName: string;
-  tasks: TestTask[];
+  tasks: Task[];
 }
 
 const TaskColumn = ({ columnColor, columnName, tasks }: TaskColumnProps) => {
@@ -16,7 +16,7 @@ const TaskColumn = ({ columnColor, columnName, tasks }: TaskColumnProps) => {
       </h2>
       <div className={styles.taskList}>
         {tasks.map((task) => (
-          <TaskCard key={task.id} id={task.id} borderColor={columnColor} departmentColor={"plum"} />
+          <TaskCard key={task.id} task={task} borderColor={columnColor} departmentColor={"plum"} />
         ))}
       </div>
     </div>
