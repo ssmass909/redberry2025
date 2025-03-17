@@ -2,6 +2,7 @@
 :root {
   --taskCardHeight: 220px;
   --taskColumnGap: 30px;
+  --headerHeight: 100px;
 }
 
 * {

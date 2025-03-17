@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import FilterOption from "../FilterOption/FilterOption";
 import styles from "./FilterBody.module.css";
-import { TasksPageStoreContext } from "../../routes/TasksPage/TasksPage";
 import { observer } from "mobx-react";
 import useOutsideClick from "../../utils/useOutsideClick";
+import { TasksPageStoreContext } from "../../App";
 
 const FilterBody = () => {
   const tasksPageStore = useContext(TasksPageStoreContext);

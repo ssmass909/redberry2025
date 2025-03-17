@@ -1,15 +1,14 @@
-import { createContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import TaskColumn from "../../components/TaskColumn/TaskColumn";
 import styles from "./TasksPage.module.css";
 import { observer } from "mobx-react";
-import TasksPageStore from "../../stores/TasksPageStore";
 import TaskFilters from "../../components/TaskFilters/TaskFilters";
 import { toJS } from "mobx";
-
-const tasksPageStore = new TasksPageStore();
-export const TasksPageStoreContext = createContext(tasksPageStore);
+import CreateEmployeeModal from "../../components/CreateEmployeeModal/CreateEmployeeModal";
+import { TasksPageStoreContext } from "../../App";
 
 const TasksPage = () => {
+  const tasksPageStore = useContext(TasksPageStoreContext);
   useEffect(() => {
     tasksPageStore.fetchTasks();
     tasksPageStore.fetchPriorities();
@@ -21,7 +20,7 @@ const TasksPage = () => {
   console.log("FILTERED TASKS:", toJS(tasksPageStore.filteredTasks));
 
   return (
-    <TasksPageStoreContext.Provider value={tasksPageStore}>
+    <>
       <div className={styles.main}>
         <h1 className={styles.pageTitle}>დავალებების გვერდი</h1>
         <TaskFilters />
@@ -36,7 +35,8 @@ const TasksPage = () => {
           ))}
         </div>
       </div>
-    </TasksPageStoreContext.Provider>
+      <CreateEmployeeModal />
+    </>
   );
 };
 

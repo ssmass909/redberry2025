@@ -1,0 +1,180 @@
+.closeBtn {
+  all: unset;
+  position: absolute;
+  right: 50px;
+  top: 40px;
+  width: 40px;
+  height: 40px;
+}
+
+.closeIcon {
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 77px;
+  gap: 45px;
+}
+
+.title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+}
+
+.row {
+  display: flex;
+  gap: 45px;
+}
+
+.inputGroup {
+  width: 385px;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.input,
+.select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.select {
+  background-position: right 12px center;
+}
+
+.validationHints {
+  padding-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.helperText {
+  font-weight: 350;
+  font-size: 10px;
+  color: #6c757d;
+}
+
+.avatarUpload {
+  display: flex;
+  flex-direction: column;
+}
+
+.avatarUploadContainer {
+  display: flex;
+  align-items: center;
+  border: 1px dashed #ced4da;
+  border-radius: 10px;
+  justify-content: center;
+  position: relative;
+  height: 120px;
+}
+
+.avatarInputLabel {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.avatarUploadIconContainer {
+  width: 136px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.avatarUploadIcon {
+  width: 34;
+  height: 28px;
+}
+
+.avatarInput {
+  display: none;
+}
+
+.avatarPreview {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.deleteButton {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  background: none;
+  cursor: pointer;
+  top: 67px;
+  left: 67px;
+  border-radius: 50%;
+  padding: 0;
+  border: 0.3px solid #6c757d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.removeIcon {
+  height: 14px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: right;
+  gap: 22px;
+}
+
+.btn {
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.filledBtn {
+  background-color: #6f42c1;
+  color: white;
+  border: none;
+  width: 262px;
+  height: 42px;
+}
+
+.outlinedBtn {
+  width: 102px;
+  height: 42px;
+  background-color: white;
+  border: 1px solid #6f42c1;
+  color: #6f42c1;
+}

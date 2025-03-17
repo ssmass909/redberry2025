@@ -21,7 +21,6 @@ export interface Employee {
   avatar: string;
   department_id: number;
 }
-
 export interface Task {
   id: number;
   name: string;

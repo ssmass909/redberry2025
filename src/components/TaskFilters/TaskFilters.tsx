@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { ActiveFilter } from "../../types";
 import styles from "./TaskFilters.module.css";
-import { TasksPageStoreContext } from "../../routes/TasksPage/TasksPage";
 import FilterBody from "../FilterBody/FilterBody";
 import { observer } from "mobx-react";
+import { TasksPageStoreContext } from "../../App";
 
 const TaskFilters = () => {
   const tasksPageStore = useContext(TasksPageStoreContext);
@@ -33,7 +33,7 @@ const TaskFilters = () => {
           <img src="down_arrow.svg" />
         </button>
       </div>
-      <FilterBody filterOptions={tasksPageStore.currentFilterInfo.options} />
+      <FilterBody />
     </>
   );
 };

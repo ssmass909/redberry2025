@@ -1,7 +1,6 @@
 import { action, computed, makeObservable, observable } from "mobx";
 import { ActiveFilter, Department, Employee, TempFilterOption, Priority, Status, Task } from "../types";
 import api from "../utils/api";
-import mutableFilterCopyWithin from "../utils/functions";
 
 class TasksPageStore {
   tasks: Task[] = [];
@@ -14,6 +13,7 @@ class TasksPageStore {
   priorityFilter: Priority[] = [];
   employeeFilter: Employee[] = [];
   tempFilter: (Department | Employee | Priority)[] = [];
+  createEmployeeModalOpen = false;
 
   constructor() {
     makeObservable(this, {
@@ -27,6 +27,7 @@ class TasksPageStore {
       employeeFilter: observable,
       tempFilter: observable,
       taskStatuses: observable,
+      createEmployeeModalOpen: observable,
       setTasks: action,
       setPriorities: action,
       setDepartments: action,
@@ -35,6 +36,7 @@ class TasksPageStore {
       setTaskStatuses: action,
       updateFilter: action,
       setTempFilter: action,
+      setCreateEmployeeModalOpen: action,
       filteredTasks: computed,
       currentFilterInfo: computed,
     });
@@ -71,6 +73,10 @@ class TasksPageStore {
       result = result.filter((task) => this.priorityFilter.map((el) => el.id).includes(task.priority.id));
 
     return result;
+  }
+
+  setCreateEmployeeModalOpen(newValue: boolean) {
+    this.createEmployeeModalOpen = newValue;
   }
 
   setTempFilter(newValue: typeof this.tempFilter) {

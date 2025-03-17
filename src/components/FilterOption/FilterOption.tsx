@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { FilterOptionType } from "../../types";
 import styles from "./FilterOption.module.css";
-import { TasksPageStoreContext } from "../../routes/TasksPage/TasksPage";
 import { observer } from "mobx-react";
+import { TasksPageStoreContext } from "../../App";
 
 interface FilterOptionProps {
   filterOption: FilterOptionType;

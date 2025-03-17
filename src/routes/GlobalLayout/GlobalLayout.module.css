@@ -10,7 +10,7 @@
 
 .header {
   width: 100%;
-  height: 100px;
+  height: var(--headerHeight);
   position: relative;
   box-sizing: border-box;
 }
