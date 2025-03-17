@@ -14,7 +14,6 @@ const TaskFilters = () => {
       return;
     }
     tasksPageStore.setActiveFilter(filter);
-    console.log("CLIENT: tasksPageStore.activeFilter:", tasksPageStore.activeFilter);
   };
 
   return (

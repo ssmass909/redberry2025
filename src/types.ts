@@ -35,4 +35,4 @@ export interface Task {
 
 export type ActiveFilter = "DEPARTMENT" | "PRIORITY" | "EMPLOYEE" | null;
 export type FilterOptionType = Partial<Department & Employee & Priority> & { id: number; name: string };
-export type TempFilterAction = "APPLY" | "RESET" | "ADD" | "REMOVE";
+export type TempFilterAction = "APPLY" | "RESET" | "ADD" | "REMOVE" | "REVERSE_APPLY";

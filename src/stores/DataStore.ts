@@ -43,10 +43,19 @@ class DataStore {
     this.taskStatuses = newValue;
   }
 
+  async fetchEverything() {
+    await Promise.all([
+      this.fetchTasks(),
+      this.fetchPriorities(),
+      this.fetchDepartments(),
+      this.fetchEmployees(),
+      this.fetchStatuses(),
+    ]);
+  }
+
   async fetchTasks() {
     try {
       const tasks = (await api.get<Task[]>("/tasks")).data;
-      console.log("CLIENT: tasks from server:", tasks);
       this.setTasks(tasks);
     } catch (e) {
       console.error(e);
@@ -56,7 +65,6 @@ class DataStore {
   async fetchPriorities() {
     try {
       const priorities = (await api.get<Priority[]>("/priorities")).data;
-      console.log("CLIENT: priorities from server:", priorities);
       this.setPriorities(priorities);
     } catch (e) {
       console.error(e);
@@ -65,7 +73,6 @@ class DataStore {
   async fetchDepartments() {
     try {
       const departments = (await api.get<Department[]>("/departments")).data;
-      console.log("CLIENT: departments from server:", departments);
       this.setDepartments(departments);
     } catch (e) {
       console.error(e);
@@ -74,7 +81,6 @@ class DataStore {
   async fetchEmployees() {
     try {
       const employees = (await api.get<Employee[]>("/employees")).data;
-      console.log("CLIENT: employees from server:", employees);
       this.setEmployees(employees);
     } catch (e) {
       console.error(e);
@@ -84,7 +90,6 @@ class DataStore {
   async fetchStatuses() {
     try {
       const statuses = (await api.get<Status[]>("/statuses")).data;
-      console.log("CLIENT: statuses from server:", statuses);
       this.setTaskStatuses(statuses);
     } catch (e) {
       console.error(e);

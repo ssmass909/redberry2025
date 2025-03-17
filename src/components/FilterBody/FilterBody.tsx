@@ -4,11 +4,12 @@ import styles from "./FilterBody.module.css";
 import { observer } from "mobx-react";
 import useOutsideClick from "../../utils/useOutsideClick";
 import { TasksPageStoreContext } from "../../routes/TasksPage/TasksPage";
+import { toJS } from "mobx";
 
 const FilterBody = () => {
   const tasksPageStore = useContext(TasksPageStoreContext);
   const ref = useOutsideClick<HTMLDivElement>(() => {
-    tasksPageStore.updateFilter("RESET", 0);
+    tasksPageStore.updateFilter("REVERSE_APPLY", 0);
     tasksPageStore.setActiveFilter(null);
   });
 
@@ -16,7 +17,7 @@ const FilterBody = () => {
   return (
     <div ref={ref} className={styles.main}>
       <div className={styles.optionsContainer}>
-        {tasksPageStore.currentFilterInfo.options.map((val) => (
+        {tasksPageStore.currentFilter?.options.map((val) => (
           <FilterOption filterOption={val} key={val.id} />
         ))}
       </div>

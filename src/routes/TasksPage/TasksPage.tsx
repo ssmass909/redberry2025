@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect } from "react";
 import TaskColumn from "../../components/TaskColumn/TaskColumn";
 import styles from "./TasksPage.module.css";
 import { observer } from "mobx-react";
@@ -12,16 +12,16 @@ export const TasksPageStoreContext = createContext(tasksPageStore);
 
 const TasksPage = () => {
   const dataStore = useDataStore();
+
   useEffect(() => {
     tasksPageStore.setDataStore(dataStore);
-    dataStore.fetchTasks();
-    dataStore.fetchPriorities();
-    dataStore.fetchDepartments();
-    dataStore.fetchEmployees();
-    dataStore.fetchStatuses();
+    dataStore.fetchEverything().then(() => tasksPageStore.updateFilterOptions());
   }, []);
 
   console.log("FILTERED TASKS:", toJS(tasksPageStore.filteredTasks));
+  console.log("DEPARTMENT FILTER:", toJS(tasksPageStore.departmentFilter));
+  console.log("EMPLOYEE FILTER:", toJS(tasksPageStore.employeeFilter));
+  console.log("PRIORITY FILTER:", toJS(tasksPageStore.priorityFilter));
 
   return (
     <>
@@ -34,7 +34,7 @@ const TasksPage = () => {
               key={status.name}
               columnColor={"red"}
               columnName={status.name}
-              tasks={tasksPageStore.filteredTasks.filter((task) => task.status.id === status.id)}
+              tasks={tasksPageStore.filteredTasks?.filter((task) => task.status.id === status.id) || []}
             />
           ))}
         </div>
