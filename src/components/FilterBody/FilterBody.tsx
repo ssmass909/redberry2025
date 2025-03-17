@@ -3,7 +3,7 @@ import FilterOption from "../FilterOption/FilterOption";
 import styles from "./FilterBody.module.css";
 import { observer } from "mobx-react";
 import useOutsideClick from "../../utils/useOutsideClick";
-import { TasksPageStoreContext } from "../../App";
+import { TasksPageStoreContext } from "../../routes/TasksPage/TasksPage";
 
 const FilterBody = () => {
   const tasksPageStore = useContext(TasksPageStoreContext);

@@ -3,7 +3,7 @@ import { ActiveFilter } from "../../types";
 import styles from "./TaskFilters.module.css";
 import FilterBody from "../FilterBody/FilterBody";
 import { observer } from "mobx-react";
-import { TasksPageStoreContext } from "../../App";
+import { TasksPageStoreContext } from "../../routes/TasksPage/TasksPage";
 
 const TaskFilters = () => {
   const tasksPageStore = useContext(TasksPageStoreContext);

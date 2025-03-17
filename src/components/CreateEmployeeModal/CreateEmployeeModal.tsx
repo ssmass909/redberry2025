@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./CreateEmployeeModal.module.css";
 import { useForm } from "react-hook-form";
 import Modal from "../Modal/Modal";
-import { TasksPageStoreContext } from "../../App";
 import { observer } from "mobx-react";
 import api from "../../utils/api";
+import { useCreateEmployeeModalStore, useDataStore } from "../../App";
 
 interface CreateEmployeeFormData {
   name: string;
@@ -14,8 +14,8 @@ interface CreateEmployeeFormData {
 }
 
 const CreateEmployeeModal = () => {
-  const tasksPageStore = useContext(TasksPageStoreContext);
-  const [avatarPrevSrc, setAvatarPrevSrc] = useState<string | null>(null);
+  const dataStore = useDataStore();
+  const createEmployeeModalStore = useCreateEmployeeModalStore();
   const {
     register,
     handleSubmit,
@@ -30,10 +30,14 @@ const CreateEmployeeModal = () => {
 
     const reader = new FileReader();
     reader.onload = (e) => {
-      if (e.target?.result) setAvatarPrevSrc(e.target.result as string);
+      if (e.target?.result) createEmployeeModalStore.setAvatarPreviewSrc(e.target.result as string);
     };
     reader.readAsDataURL(avatar);
   }, [avatar]);
+
+  useEffect(() => {
+    dataStore.fetchDepartments();
+  }, []);
 
   const onSubmit = async (data: CreateEmployeeFormData) => {
     if (!avatar) return;
@@ -46,10 +50,10 @@ const CreateEmployeeModal = () => {
     const result = await api.post("/employees", formData);
   };
 
-  if (!tasksPageStore.createEmployeeModalOpen) return null;
+  if (!createEmployeeModalStore.modalOpen) return null;
   return (
-    <Modal open={tasksPageStore.createEmployeeModalOpen} close={() => tasksPageStore.setCreateEmployeeModalOpen(false)}>
-      <button className={styles.closeBtn} onClick={() => tasksPageStore.setCreateEmployeeModalOpen(false)}>
+    <Modal open={createEmployeeModalStore.modalOpen} close={() => createEmployeeModalStore.setModalOpen(false)}>
+      <button className={styles.closeBtn} onClick={() => createEmployeeModalStore.setModalOpen(false)}>
         <img className={styles.closeIcon} alt="close" src="close_icon.svg" />
       </button>
       <div className={styles.modalContent}>
@@ -75,14 +79,14 @@ const CreateEmployeeModal = () => {
           <div className={styles.avatarUpload}>
             <label className={styles.label}>ავატარი*</label>
             <div className={styles.avatarUploadContainer}>
-              {!!avatarPrevSrc ? (
+              {!!createEmployeeModalStore.avatarPreviewSrc ? (
                 <div className={styles.avatarPreview}>
-                  <img className={styles.avatar} src={avatarPrevSrc} alt="User avatar" />
+                  <img className={styles.avatar} src={createEmployeeModalStore.avatarPreviewSrc} alt="User avatar" />
                   <button
                     type="button"
                     className={styles.deleteButton}
                     onClick={() => {
-                      setAvatarPrevSrc(null);
+                      createEmployeeModalStore.setAvatarPreviewSrc(null);
                       (document.getElementById("avatarInput") as HTMLInputElement).value = "";
                     }}
                   >
@@ -113,7 +117,7 @@ const CreateEmployeeModal = () => {
             </label>
             <select {...register("department_id")} className={styles.select} id="department" required>
               <option value=""></option>
-              {tasksPageStore.departments.map((dep) => (
+              {dataStore.departments.map((dep) => (
                 <option key={dep.id} value={dep.id}>
                   {dep.name}
                 </option>
@@ -123,7 +127,7 @@ const CreateEmployeeModal = () => {
 
           <div className={styles.buttonGroup}>
             <button
-              onClick={() => tasksPageStore.setCreateEmployeeModalOpen(false)}
+              onClick={() => createEmployeeModalStore.setModalOpen(false)}
               type="button"
               className={`${styles.btn} ${styles.outlinedBtn}`}
             >

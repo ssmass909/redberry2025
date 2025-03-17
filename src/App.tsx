@@ -5,26 +5,31 @@ import TaskInfoPage from "./routes/TaskInfoPage/TaskInfoPage";
 import CreateTaskPage from "./routes/CreateTaskPage/CreateTaskPage";
 import { Navigate } from "react-router";
 import "./globals.css";
-import { createContext } from "react";
-import TasksPageStore from "./stores/TasksPageStore";
+import CreateEmployeeModal from "./components/CreateEmployeeModal/CreateEmployeeModal";
+import createProvider from "./utils/createProvider";
+import DataStore from "./stores/DataStore";
+import CreateEmployeeModalStore from "./stores/CreateEmployeeModalStore";
 
-const tasksPageStore = new TasksPageStore();
-export const TasksPageStoreContext = createContext(tasksPageStore);
+export const [useDataStore, DataStoreProvider] = createProvider(DataStore);
+export const [useCreateEmployeeModalStore, CreateEmployeeModalStoreProvider] = createProvider(CreateEmployeeModalStore);
 
 const App = () => {
   return (
-    <TasksPageStoreContext.Provider value={tasksPageStore}>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<GlobalLayout />}>
-            <Route path="/" element={<Navigate to="/tasks" replace />} />
-            <Route path="/tasks" index element={<TasksPage />} />
-            <Route path="/task/:id" index element={<TaskInfoPage />} />
-            <Route path="/createTask" index element={<CreateTaskPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </TasksPageStoreContext.Provider>
+    <DataStoreProvider>
+      <CreateEmployeeModalStoreProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<GlobalLayout />}>
+              <Route path="/" element={<Navigate to="/tasks" replace />} />
+              <Route path="/tasks" index element={<TasksPage />} />
+              <Route path="/task/:id" index element={<TaskInfoPage />} />
+              <Route path="/createTask" index element={<CreateTaskPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+        <CreateEmployeeModal />
+      </CreateEmployeeModalStoreProvider>
+    </DataStoreProvider>
   );
 };
 

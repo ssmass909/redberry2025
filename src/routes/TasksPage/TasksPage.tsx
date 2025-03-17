@@ -1,20 +1,24 @@
-import { useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import TaskColumn from "../../components/TaskColumn/TaskColumn";
 import styles from "./TasksPage.module.css";
 import { observer } from "mobx-react";
 import TaskFilters from "../../components/TaskFilters/TaskFilters";
 import { toJS } from "mobx";
-import CreateEmployeeModal from "../../components/CreateEmployeeModal/CreateEmployeeModal";
-import { TasksPageStoreContext } from "../../App";
+import TasksPageStore from "../../stores/TasksPageStore";
+import { useDataStore } from "../../App";
+
+const tasksPageStore = new TasksPageStore();
+export const TasksPageStoreContext = createContext(tasksPageStore);
 
 const TasksPage = () => {
-  const tasksPageStore = useContext(TasksPageStoreContext);
+  const dataStore = useDataStore();
   useEffect(() => {
-    tasksPageStore.fetchTasks();
-    tasksPageStore.fetchPriorities();
-    tasksPageStore.fetchDepartments();
-    tasksPageStore.fetchEmployees();
-    tasksPageStore.fetchStatuses();
+    tasksPageStore.setDataStore(dataStore);
+    dataStore.fetchTasks();
+    dataStore.fetchPriorities();
+    dataStore.fetchDepartments();
+    dataStore.fetchEmployees();
+    dataStore.fetchStatuses();
   }, []);
 
   console.log("FILTERED TASKS:", toJS(tasksPageStore.filteredTasks));
@@ -25,7 +29,7 @@ const TasksPage = () => {
         <h1 className={styles.pageTitle}>დავალებების გვერდი</h1>
         <TaskFilters />
         <div className={styles.tasksContainer}>
-          {tasksPageStore.taskStatuses.map((status) => (
+          {dataStore.taskStatuses.map((status) => (
             <TaskColumn
               key={status.name}
               columnColor={"red"}
@@ -35,7 +39,6 @@ const TasksPage = () => {
           ))}
         </div>
       </div>
-      <CreateEmployeeModal />
     </>
   );
 };

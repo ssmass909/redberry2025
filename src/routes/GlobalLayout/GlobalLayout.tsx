@@ -1,10 +1,9 @@
-import { useContext } from "react";
+import { useCreateEmployeeModalStore } from "../../App";
 import styles from "./GlobalLayout.module.css";
 import { Link, Outlet } from "react-router";
-import { TasksPageStoreContext } from "../../App";
 
 const GlobalLayout = () => {
-  const tasksPageStore = useContext(TasksPageStoreContext);
+  const createEmployeeModalStore = useCreateEmployeeModalStore();
 
   return (
     <div className={styles.main}>
@@ -20,7 +19,7 @@ const GlobalLayout = () => {
         </Link>
         <button
           className={`${styles.btn} ${styles.outlinedBtn}`}
-          onClick={() => tasksPageStore.setCreateEmployeeModalOpen(true)}
+          onClick={() => createEmployeeModalStore.setModalOpen(true)}
         >
           <span className={`${styles.btnText} ${styles.outlinedBtnText}`}>თანამშრომლის შექმნა</span>
         </button>
