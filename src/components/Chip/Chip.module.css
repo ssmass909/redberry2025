@@ -1,0 +1,22 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  height: 29px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid #ced4da;
+}
+.title {
+  font-size: 14px;
+}
+.delBtn {
+  width: 14px;
+  height: 14px;
+  padding: 0;
+}
+.delIcon {
+  height: 100%;
+  width: 100%;
+}
