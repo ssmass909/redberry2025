@@ -18,7 +18,10 @@ const FilterOption = ({ filterOption }: FilterOptionProps) => {
   return (
     <div className={styles.main}>
       <input
-        checked={tasksPageStore.currentFilter?.tempFilter.map((e) => e.id).includes(filterOption.id)}
+        checked={tasksPageStore
+          .getCurrentFilter()
+          ?.tempFilter.map((e) => e.id)
+          .includes(filterOption.id)}
         onChange={(e) => onChange(e.target.checked)}
         type="checkbox"
       />

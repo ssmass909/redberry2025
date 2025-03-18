@@ -17,7 +17,7 @@ const FilterBody = () => {
   return (
     <div ref={ref} className={styles.main}>
       <div className={styles.optionsContainer}>
-        {tasksPageStore.currentFilter?.options.map((val) => (
+        {tasksPageStore.getCurrentFilter()?.options.map((val) => (
           <FilterOption filterOption={val} key={val.id} />
         ))}
       </div>

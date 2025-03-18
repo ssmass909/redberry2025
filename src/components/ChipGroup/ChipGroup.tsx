@@ -1,20 +1,43 @@
+import { useContext } from "react";
+import { ActiveFilter } from "../../types";
 import Chip from "../Chip/Chip";
 import styles from "./ChipGroup.module.css";
-
-type SingleChipGroupProp = {
-  info: { id: number; title: string }[];
-  onDelete: (id: number) => void;
-};
+import { TasksPageStoreContext } from "../../routes/TasksPage/TasksPage";
 
 type ChipGroupProps = {
-  data: SingleChipGroupProp[];
+  filters: ActiveFilter[];
 };
 
-const ChipGroup = ({ data }: ChipGroupProps) => {
+const ChipGroup = ({ filters }: ChipGroupProps) => {
+  const tasksPageStore = useContext(TasksPageStoreContext);
+
   return (
     <div className={styles.main}>
-      {data.map((data) =>
-        data.info.map((info) => <Chip key={info.id} title={info.title} onDelete={() => data.onDelete} id={0} />)
+      {filters.map((filter) => {
+        const currentFilter = tasksPageStore.getCurrentFilter(filter);
+        const data = currentFilter.filter.map((filter) => {
+          return { id: filter.id, title: filter.name };
+        });
+
+        const onDelete = (id: number) => {
+          currentFilter.updateFilter("REMOVE", id);
+          currentFilter.updateFilter("APPLY", id);
+        };
+
+        return data.map((data) => <Chip key={data.id} {...data} onDelete={onDelete} />);
+      })}
+      {!tasksPageStore.filtersEmpty && (
+        <button
+          className={styles.clearBtn}
+          onClick={() => {
+            filters.forEach((filter) => {
+              tasksPageStore.getCurrentFilter(filter).updateFilter("RESET");
+              tasksPageStore.getCurrentFilter(filter).updateFilter("APPLY");
+            });
+          }}
+        >
+          გასუფთავება
+        </button>
       )}
     </div>
   );

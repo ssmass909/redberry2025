@@ -1,0 +1,20 @@
+.main {
+  display: flex;
+  gap: 8px;
+  margin: 25px 0px;
+  max-width: 688px;
+  overflow-x: auto;
+  height: 30px;
+}
+
+.clearBtn {
+  height: 29px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: none;
+  border-radius: 43px;
+  font-size: 14px;
+  color: #343a40;
+  background: none;
+  cursor: pointer;
+}

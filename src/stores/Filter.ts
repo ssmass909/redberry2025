@@ -5,13 +5,10 @@ class FilterStore<T extends { id: number }> {
   options: T[] = [];
   filter: T[] = [];
   tempFilter: T[] = [];
-  multiselect = false;
+  multiselect = true;
 
-  constructor(config?: { options?: T[]; multiSelect?: boolean }) {
-    if (config?.options) {
-      this.options = config.options;
-    }
-
+  constructor(config: { options: T[]; multiSelect: boolean } = { options: [], multiSelect: true }) {
+    this.options = config.options;
     this.multiselect = !!config?.multiSelect;
 
     makeObservable(this, {
@@ -39,7 +36,7 @@ class FilterStore<T extends { id: number }> {
 
   updateFilter(
     tempFilterOption: TempFilterAction,
-    id: number,
+    id: number = -1,
     customOptions?: Partial<Record<TempFilterAction, (filterObj: typeof this) => void>>
   ) {
     if (customOptions && customOptions[tempFilterOption]) {

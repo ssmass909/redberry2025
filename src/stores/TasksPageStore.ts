@@ -7,7 +7,7 @@ class TasksPageStore {
   activeFilter: ActiveFilter = null;
   departmentFilter: FilterStore<Department> = new FilterStore();
   priorityFilter: FilterStore<Priority> = new FilterStore();
-  employeeFilter: FilterStore<Employee> = new FilterStore({ multiSelect: false });
+  employeeFilter: FilterStore<Employee> = new FilterStore({ multiSelect: false, options: [] });
   dataStore?: DataStore;
 
   constructor() {
@@ -21,7 +21,7 @@ class TasksPageStore {
       updateFilter: action,
       setActiveFilter: action,
       filteredTasks: computed,
-      currentFilter: computed,
+      filtersEmpty: computed,
     });
   }
 
@@ -37,11 +37,11 @@ class TasksPageStore {
     this.priorityFilter.setOptions(source.priorities);
   }
 
-  get currentFilter() {
-    if (!this.dataStore) return null;
+  getCurrentFilter(filter?: ActiveFilter) {
+    let src = filter || this.activeFilter;
     let currentFilter = this.departmentFilter;
-    if (this.activeFilter === "EMPLOYEE") currentFilter = this.employeeFilter;
-    if (this.activeFilter === "PRIORITY") currentFilter = this.priorityFilter;
+    if (src === "EMPLOYEE") currentFilter = this.employeeFilter;
+    if (src === "PRIORITY") currentFilter = this.priorityFilter;
 
     return currentFilter;
   }
@@ -64,8 +64,16 @@ class TasksPageStore {
     return result;
   }
 
+  get filtersEmpty() {
+    return (
+      this.employeeFilter.filter.length === 0 &&
+      this.priorityFilter.filter.length === 0 &&
+      this.departmentFilter.filter.length === 0
+    );
+  }
+
   updateFilter(tempFilterAction: TempFilterAction, id: number) {
-    let filterToUpdate = this.currentFilter;
+    let filterToUpdate = this.getCurrentFilter();
     if (!filterToUpdate) return;
 
     filterToUpdate.updateFilter(tempFilterAction, id);

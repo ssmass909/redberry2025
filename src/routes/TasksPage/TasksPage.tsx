@@ -23,35 +23,7 @@ const TasksPage = () => {
       <div className={styles.main}>
         <h1 className={styles.pageTitle}>დავალებების გვერდი</h1>
         <TaskFilters />
-        <ChipGroup
-          data={[
-            {
-              info: tasksPageStore.departmentFilter.filter.map((filter) => {
-                return { id: filter.id, title: filter.name };
-              }),
-              onDelete: (id) => {
-                console.log("hei");
-                tasksPageStore.departmentFilter.updateFilter("REMOVE", id);
-              },
-            },
-            {
-              info: tasksPageStore.priorityFilter.filter.map((filter) => {
-                return { id: filter.id, title: filter.name };
-              }),
-              onDelete: (id) => {
-                tasksPageStore.priorityFilter.updateFilter("REMOVE", id);
-              },
-            },
-            {
-              info: tasksPageStore.employeeFilter.filter.map((filter) => {
-                return { id: filter.id, title: filter.name };
-              }),
-              onDelete: (id) => {
-                tasksPageStore.employeeFilter.updateFilter("REMOVE", id);
-              },
-            },
-          ]}
-        />
+        <ChipGroup filters={["DEPARTMENT", "EMPLOYEE", "PRIORITY"]} />
         <div className={styles.tasksContainer}>
           {dataStore.taskStatuses.map((status) => (
             <TaskColumn

@@ -7,11 +7,16 @@
   padding-left: 10px;
   padding-right: 10px;
   border: 1px solid #ced4da;
+  border-radius: 43px;
+  min-width: fit-content;
 }
 .title {
   font-size: 14px;
+  color: #343a40;
 }
 .delBtn {
+  background: none;
+  border: none;
   width: 14px;
   height: 14px;
   padding: 0;
