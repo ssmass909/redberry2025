@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: center;
   gap: 28px;
+  cursor: pointer;
 }
 
 .top {
@@ -47,14 +48,22 @@
 .department {
   color: white;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  width: 88px;
-  padding: 5px 9px;
+  min-width: 88px;
+  max-width: 100px;
+  height: 24px;
+  padding: 5px;
   border-radius: 15px;
-  font-size: 12px;
+  font-size: 11px;
+  word-wrap: break-word;
+  word-break: normal;
 }
 .dueDate {
   margin-left: auto;
+  font-size: 12px;
 }
 
 .middle {
@@ -63,6 +72,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  height: 64px;
 }
 
 .title {
@@ -73,6 +83,7 @@
 
 .description {
   font-size: 14px;
+  color: #343a40;
 }
 
 .bottom {

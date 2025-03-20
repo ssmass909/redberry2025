@@ -3,9 +3,11 @@ export interface Status {
   name: string;
 }
 
+export type PriorityName = "დაბალი" | "საშუალო" | "მაღალი";
+
 export interface Priority {
   id: number;
-  name: string;
+  name: PriorityName;
   icon: string;
 }
 

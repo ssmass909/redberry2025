@@ -1,4 +1,5 @@
-import { Task } from "../../types";
+import { PriorityName, Task } from "../../types";
+import { abbreviateText, getGeorgianDate } from "../../utils/functions";
 import styles from "./TaskCard.module.css";
 
 interface TaskCardProps {
@@ -7,22 +8,30 @@ interface TaskCardProps {
   departmentColor: string;
 }
 
+const PRIORITY_COLORS: { [key in PriorityName]: string } = {
+  დაბალი: "#08A508",
+  საშუალო: "#FFBE0B",
+  მაღალი: "#FA4D4D",
+};
+
 const TaskCard = ({ task, borderColor, departmentColor }: TaskCardProps) => {
   return (
     <div style={{ borderColor: borderColor }} className={styles.main}>
       <div className={styles.top}>
-        <div className={styles.priority} style={{ borderColor: "red" }}>
+        <div className={styles.priority} style={{ borderColor: PRIORITY_COLORS[task.priority.name] }}>
           <img src={task.priority.icon} alt="priority icon" className={styles.priorityIcon} />
           <span className={styles.priorityText}>{task.priority.name}</span>
         </div>
         <span className={styles.department} style={{ backgroundColor: departmentColor }}>
-          {task.department.name}
+          {abbreviateText(task.department.name, 12)}
         </span>
-        <span className={styles.dueDate}> {task.due_date} </span>
+        <span className={styles.dueDate}> {getGeorgianDate(task.due_date)} </span>
       </div>
       <div className={styles.middle}>
         <h1 className={styles.title}>{task.name} </h1>
-        <span className={styles.description}>{task.description}</span>
+        <span className={styles.description}>
+          {`${task.description.substring(0, 100)}${task.description.length > 100 ? "..." : ""}`}
+        </span>
       </div>
       <div className={styles.bottom}>
         <img className={styles.avatar} src={task.employee.avatar} alt="employee avatar" />

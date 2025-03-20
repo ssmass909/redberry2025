@@ -9,6 +9,7 @@
   border: 1px solid #ced4da;
   border-radius: 43px;
   min-width: fit-content;
+  box-sizing: border-box;
 }
 .title {
   font-size: 14px;
