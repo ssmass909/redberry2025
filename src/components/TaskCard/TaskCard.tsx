@@ -1,5 +1,6 @@
 import { PriorityName, Task } from "../../types";
 import { abbreviateText, getGeorgianDate } from "../../utils/functions";
+import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import styles from "./TaskCard.module.css";
 
 interface TaskCardProps {
@@ -8,7 +9,7 @@ interface TaskCardProps {
   departmentColor: string;
 }
 
-const PRIORITY_COLORS: { [key in PriorityName]: string } = {
+const PRIORITY_COLORS = {
   დაბალი: "#08A508",
   საშუალო: "#FFBE0B",
   მაღალი: "#FA4D4D",
@@ -18,7 +19,13 @@ const TaskCard = ({ task, borderColor, departmentColor }: TaskCardProps) => {
   return (
     <div style={{ borderColor: borderColor }} className={styles.main}>
       <div className={styles.top}>
-        <div className={styles.priority} style={{ borderColor: PRIORITY_COLORS[task.priority.name] }}>
+        <div
+          className={styles.priority}
+          style={{
+            borderColor:
+              task.priority.name in PRIORITY_COLORS ? PRIORITY_COLORS[task.priority.name as PriorityName] : "",
+          }}
+        >
           <img src={task.priority.icon} alt="priority icon" className={styles.priorityIcon} />
           <span className={styles.priorityText}>{task.priority.name}</span>
         </div>
@@ -34,7 +41,7 @@ const TaskCard = ({ task, borderColor, departmentColor }: TaskCardProps) => {
         </span>
       </div>
       <div className={styles.bottom}>
-        <img className={styles.avatar} src={task.employee.avatar} alt="employee avatar" />
+        <AvatarIcon avatarSrc={task.employee.avatar} />
         <div className={styles.comments}>
           <img className={styles.commentsIcon} src="comments_icon.svg" alt="comments" />
           <span className={styles.commentsCount}>{task.total_comments}</span>

@@ -3,6 +3,7 @@ import { FilterOptionType } from "../../types";
 import styles from "./FilterOption.module.css";
 import { observer } from "mobx-react";
 import { TasksPageStoreContext } from "../../routes/TasksPage/TasksPage";
+import AvatarIcon from "../AvatarIcon/AvatarIcon";
 
 interface FilterOptionProps {
   filterOption: FilterOptionType;
@@ -25,7 +26,8 @@ const FilterOption = ({ filterOption }: FilterOptionProps) => {
         onChange={(e) => onChange(e.target.checked)}
         type="checkbox"
       />
-      <span>{filterOption.name}</span>
+      {filterOption.avatar && <AvatarIcon avatarSrc={filterOption.avatar} />}
+      <span className={styles.title}>{`${filterOption.name} ${filterOption.surname ? filterOption.surname : ""}`}</span>
     </div>
   );
 };

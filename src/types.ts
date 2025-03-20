@@ -7,7 +7,7 @@ export type PriorityName = "დაბალი" | "საშუალო" | "მ
 
 export interface Priority {
   id: number;
-  name: PriorityName;
+  name: string;
   icon: string;
 }
 

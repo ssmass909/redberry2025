@@ -1,0 +1,6 @@
+.main {
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  object-fit: cover;
+}

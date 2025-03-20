@@ -93,11 +93,6 @@
   align-items: center;
 }
 
-.avatar {
-  width: 31px;
-  height: 31px;
-}
-
 .comments {
   display: flex;
   gap: 4px;
