@@ -1,13 +1,29 @@
 .main {
   display: flex;
   gap: 15px;
+  height: min-content;
 }
 
 .title {
   display: flex;
   align-items: center;
+  font-size: 16px;
+  line-height: 100%;
 }
 
 input {
   cursor: pointer;
+  accent-color: #8338ec;
+  appearance: none;
+  border: 1.5px solid #8338ec;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+}
+
+input:checked {
+  background-image: url("checkmark.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 15px;
 }
