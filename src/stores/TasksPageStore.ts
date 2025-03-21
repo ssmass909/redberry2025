@@ -33,13 +33,13 @@ class TasksPageStore {
         employeeFilter: toJS(this.employeeFilter.filter),
       }),
       (filters) => {
-        localStorage.setItem("taskFilters", JSON.stringify(filters));
+        sessionStorage.setItem("taskFilters", JSON.stringify(filters));
       }
     );
   }
 
   loadFiltersFromSessionStorage() {
-    const savedFilters = localStorage.getItem("taskFilters");
+    const savedFilters = sessionStorage.getItem("taskFilters");
     if (savedFilters) {
       const parsedFilters = JSON.parse(savedFilters);
 
