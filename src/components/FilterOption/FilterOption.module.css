@@ -23,7 +23,7 @@
 }
 
 .input:checked {
-  background-image: url("checkmark.svg");
+  background-image: url("/public/checkmark.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 15px;
