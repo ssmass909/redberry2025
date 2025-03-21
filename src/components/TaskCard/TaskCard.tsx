@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { Task } from "../../types";
-import { getGeorgianDate } from "../../utils/functions";
+import { getGeorgianDates } from "../../utils/functions";
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import styles from "./TaskCard.module.css";
 import Priority from "../../Priority/Priority";
@@ -18,7 +18,7 @@ const TaskCard = ({ task, borderColor }: TaskCardProps) => {
         <div className={styles.top}>
           <Priority priority={task.priority} />
           <Department id={task.department.id} name={task.department.name} />
-          <span className={styles.dueDate}> {getGeorgianDate(task.due_date)} </span>
+          <span className={styles.dueDate}> {getGeorgianDates(task.due_date).tasksPage} </span>
         </div>
         <div className={styles.middle}>
           <h1 className={styles.title}>{task.name} </h1>

@@ -1,12 +1,33 @@
-export const getGeorgianDate = (isoDate: string) => {
+export const getGeorgianDates = (isoDate: string) => {
   const monthsGeorgian = ["იანვ", "თებ", "მარ", "აპრ", "მაი", "ივნ", "ივლ", "აგვ", "სექ", "ოქტ", "ნოე", "დეკ"];
+  const georgianWeekdays = ["კვი", "ორშ", "სამ", "ოთხ", "ხუთ", "პარ", "შაბ"];
 
-  const date = new Date(isoDate);
-  const day = date.getUTCDate();
-  const month = monthsGeorgian[date.getUTCMonth()];
-  const year = date.getUTCFullYear();
+  try {
+    const date = new Date(isoDate);
 
-  return `${day} ${month}, ${year}`;
+    if (isNaN(date.getTime())) {
+      throw new Error("Invalid date");
+    }
+
+    const day = date.getDate();
+    const monthIndex = date.getMonth();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const dayOfWeek = date.getDay();
+
+    const weekdayAbbr = georgianWeekdays[dayOfWeek];
+
+    return {
+      taskInfoPage: `${weekdayAbbr} - ${month.toString().padStart(2, "0")}/${day}/${year}`,
+      tasksPage: `${day} ${monthsGeorgian[monthIndex]}, ${year}`,
+    };
+  } catch (error) {
+    console.error("Error formatting date:", error);
+    return {
+      taskInfoPage: "Invalid date",
+      tasksPage: "Invalid date",
+    };
+  }
 };
 
 export const generateRandomColors = (x: number) => {

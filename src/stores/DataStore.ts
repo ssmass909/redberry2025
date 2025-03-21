@@ -1,10 +1,10 @@
 import { action, makeObservable, observable } from "mobx";
-import { Task, Priority, Department, Employee, Status } from "../types";
+import { Task, PriorityType, Department, Employee, Status } from "../types";
 import api from "../utils/api";
 
 class DataStore {
   tasks: Task[] = [];
-  priorities: Priority[] = [];
+  priorities: PriorityType[] = [];
   departments: Department[] = [];
   employees: Employee[] = [];
   taskStatuses: Status[] = [];
@@ -28,7 +28,7 @@ class DataStore {
     this.tasks = newValue;
   }
 
-  setPriorities(newValue: Priority[]) {
+  setPriorities(newValue: PriorityType[]) {
     this.priorities = newValue;
   }
 
@@ -64,7 +64,7 @@ class DataStore {
 
   async fetchPriorities() {
     try {
-      const priorities = (await api.get<Priority[]>("/priorities")).data;
+      const priorities = (await api.get<PriorityType[]>("/priorities")).data;
       this.setPriorities(priorities);
     } catch (e) {
       console.error(e);

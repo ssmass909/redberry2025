@@ -1,0 +1,109 @@
+.main {
+  display: flex;
+  gap: 223px;
+  padding: 40px 120px 376px 121px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  width: 715px;
+  gap: 26px;
+}
+
+.overview {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.overview_top {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.title {
+  font-size: 34px;
+  font-weight: 600;
+  margin: 0;
+  color: #212529;
+}
+
+.description {
+  font-size: 18px;
+  line-height: 150%;
+}
+
+.details {
+  margin-top: 63px;
+  width: 493px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.detailsTitle {
+  font-weight: 500;
+  font-size: 24px;
+  color: #2a2a2a;
+}
+
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.taskDetail {
+  display: flex;
+  height: 70px;
+  gap: 70px;
+}
+
+.detailName {
+  display: flex;
+  gap: 6px;
+  width: 164px;
+}
+
+.detailTitle {
+  color: #474747;
+  width: 100%;
+}
+
+.detailIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.detail_taskStatus {
+}
+
+.detail_employee {
+  display: flex;
+  gap: 12px;
+  height: 41px;
+}
+
+.detail_employee_info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5px;
+}
+
+.detail_employee_department {
+  font-weight: 300;
+  font-size: 11px;
+  color: #474747;
+}
+
+.detail_employee_name {
+  font-size: 14px;
+  color: #0d0f10;
+}
+
+.detail_dueDate {
+  font-size: 14px;
+  color: #0d0f10;
+}

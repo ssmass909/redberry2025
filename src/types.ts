@@ -5,7 +5,7 @@ export interface Status {
 
 export type PriorityName = "დაბალი" | "საშუალო" | "მაღალი";
 
-export interface Priority {
+export interface PriorityType {
   id: number;
   name: string;
   icon: string;
@@ -29,12 +29,12 @@ export interface Task {
   description: string;
   due_date: string;
   status: Status;
-  priority: Priority;
+  priority: PriorityType;
   department: Department;
   employee: Employee;
   total_comments: number;
 }
 
 export type ActiveFilter = "DEPARTMENT" | "PRIORITY" | "EMPLOYEE" | null;
-export type FilterOptionType = Partial<Department & Employee & Priority> & { id: number; name: string };
+export type FilterOptionType = Partial<Department & Employee & PriorityType> & { id: number; name: string };
 export type TempFilterAction = "APPLY" | "RESET" | "ADD" | "REMOVE" | "REVERSE_APPLY";
