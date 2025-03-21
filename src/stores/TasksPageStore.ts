@@ -1,4 +1,4 @@
-import { action, computed, makeObservable, observable, toJS } from "mobx";
+import { action, computed, makeObservable, observable, reaction, toJS } from "mobx";
 import { ActiveFilter, Department, Employee, PriorityType, Task, TempFilterAction } from "../types";
 import DataStore from "./DataStore";
 import FilterStore from "./Filter";
@@ -23,6 +23,34 @@ class TasksPageStore {
       filteredTasks: computed,
       filtersEmpty: computed,
     });
+
+    this.loadFiltersFromSessionStorage();
+
+    reaction(
+      () => ({
+        departmentFilter: toJS(this.departmentFilter.filter),
+        priorityFilter: toJS(this.priorityFilter.filter),
+        employeeFilter: toJS(this.employeeFilter.filter),
+      }),
+      (filters) => {
+        localStorage.setItem("taskFilters", JSON.stringify(filters));
+      }
+    );
+  }
+
+  loadFiltersFromSessionStorage() {
+    const savedFilters = localStorage.getItem("taskFilters");
+    if (savedFilters) {
+      const parsedFilters = JSON.parse(savedFilters);
+
+      this.departmentFilter.tempFilter = parsedFilters.departmentFilter || [];
+      this.priorityFilter.tempFilter = parsedFilters.priorityFilter || [];
+      this.employeeFilter.tempFilter = parsedFilters.employeeFilter || [];
+
+      this.departmentFilter.updateFilter("APPLY");
+      this.employeeFilter.updateFilter("APPLY");
+      this.priorityFilter.updateFilter("APPLY");
+    }
   }
 
   setDataStore(newValue: DataStore) {

@@ -49,6 +49,5 @@ export const abbreviateText = (text: string, targetLength: number) => {
   const lettersPerWord = Math.floor(targetLength / words.length) - 1;
   words = words.map((word) => word.substring(0, lettersPerWord));
   const result = words.join(". ") + ".";
-  console.log(lettersPerWord, result);
   return result;
 };
