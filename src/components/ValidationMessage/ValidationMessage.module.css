@@ -1,0 +1,9 @@
+.main {
+  display: flex;
+  gap: 2px;
+}
+
+.message {
+  font-size: 10px;
+  font-weight: 350;
+}

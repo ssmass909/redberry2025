@@ -19,6 +19,7 @@ const FilterOption = ({ filterOption }: FilterOptionProps) => {
   return (
     <div className={styles.main}>
       <input
+        className={styles.input}
         checked={tasksPageStore
           .getCurrentFilter()
           ?.tempFilter.map((e) => e.id)
@@ -27,7 +28,6 @@ const FilterOption = ({ filterOption }: FilterOptionProps) => {
         type="checkbox"
         className={styles.input}
       />
-      <span className={styles.checkmark}></span>
       {filterOption.avatar && <AvatarIcon avatarSrc={filterOption.avatar} />}
       <span className={styles.title}>{`${filterOption.name} ${filterOption.surname ? filterOption.surname : ""}`}</span>
     </div>
