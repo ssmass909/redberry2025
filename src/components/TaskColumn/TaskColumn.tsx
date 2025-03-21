@@ -6,10 +6,9 @@ interface TaskColumnProps {
   columnColor: string;
   columnName: string;
   tasks: Task[];
-  departmentColors: string[];
 }
 
-const TaskColumn = ({ columnColor, columnName, tasks, departmentColors }: TaskColumnProps) => {
+const TaskColumn = ({ columnColor, columnName, tasks }: TaskColumnProps) => {
   return (
     <div className={styles.main}>
       <h2 style={{ backgroundColor: columnColor }} className={styles.columnTitle}>
@@ -17,12 +16,7 @@ const TaskColumn = ({ columnColor, columnName, tasks, departmentColors }: TaskCo
       </h2>
       <div className={styles.taskList}>
         {tasks.map((task) => (
-          <TaskCard
-            key={task.id}
-            task={task}
-            borderColor={columnColor}
-            departmentColor={departmentColors[task.department.id]}
-          />
+          <TaskCard key={task.id} task={task} borderColor={columnColor} />
         ))}
       </div>
     </div>

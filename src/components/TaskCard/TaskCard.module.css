@@ -22,45 +22,6 @@
   align-items: center;
 }
 
-.priority {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  border-width: 0.5px;
-  border-style: solid;
-  padding: 4px;
-  border-radius: 4px;
-  width: 86px;
-  height: 26px;
-}
-
-.priorityIcon {
-  width: 16px;
-  height: 18px;
-}
-.priorityText {
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 150%;
-  margin-right: 2px;
-}
-.department {
-  color: white;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  min-width: 88px;
-  max-width: 100px;
-  height: 24px;
-  padding: 5px;
-  border-radius: 15px;
-  font-size: 11px;
-  word-wrap: break-word;
-  word-break: normal;
-}
 .dueDate {
   margin-left: auto;
   font-size: 12px;
