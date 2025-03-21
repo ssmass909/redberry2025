@@ -1,5 +1,5 @@
 import { action, computed, makeObservable, observable, reaction, toJS } from "mobx";
-import { ActiveFilter, Department, Employee, PriorityType, Task, TempFilterAction } from "../types";
+import { ActiveFilter, Department, Employee, PriorityType, ResponseEmployee, Task, TempFilterAction } from "../types";
 import DataStore from "./DataStore";
 import FilterStore from "./Filter";
 
@@ -7,7 +7,7 @@ class TasksPageStore {
   activeFilter: ActiveFilter = null;
   departmentFilter: FilterStore<Department> = new FilterStore();
   priorityFilter: FilterStore<PriorityType> = new FilterStore();
-  employeeFilter: FilterStore<Employee> = new FilterStore({ multiSelect: false, options: [] });
+  employeeFilter: FilterStore<ResponseEmployee> = new FilterStore({ multiSelect: false, options: [] });
   dataStore?: DataStore;
 
   constructor() {

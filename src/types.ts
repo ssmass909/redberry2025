@@ -23,6 +23,18 @@ export interface Employee {
   avatar: string;
   department_id: number;
 }
+
+export interface ResponseEmployee {
+  id: number;
+  name: string;
+  surname: string;
+  avatar: string;
+  department: {
+    id: number;
+    name: string;
+  };
+}
+
 export interface Task {
   id: number;
   name: string;

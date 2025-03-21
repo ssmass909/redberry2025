@@ -8,7 +8,9 @@ const GlobalLayout = () => {
   return (
     <div className={styles.main}>
       <header className={styles.header}>
-        <img className={styles.logo} src="/momentum_logo.svg" alt="Momentum logo" />
+        <Link style={{ all: "unset", cursor: "pointer" }} to={"/tasks"}>
+          <img className={styles.logo} src="/momentum_logo.svg" alt="Momentum logo" />
+        </Link>
         <Link to={"/createTask"}>
           <button className={`${styles.btn} ${styles.filledBtn}`}>
             <div className={styles.filledBtnInnerContainer}>

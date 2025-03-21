@@ -1,12 +1,12 @@
 import { action, makeObservable, observable } from "mobx";
-import { Task, PriorityType, Department, Employee, Status, CommentType } from "../types";
+import { Task, PriorityType, Department, Employee, Status, CommentType, ResponseEmployee } from "../types";
 import api from "../utils/api";
 
 class DataStore {
   tasks: Task[] = [];
   priorities: PriorityType[] = [];
   departments: Department[] = [];
-  employees: Employee[] = [];
+  employees: ResponseEmployee[] = [];
   taskStatuses: Status[] = [];
   task?: Task;
   comments: CommentType[] = [];
@@ -42,7 +42,7 @@ class DataStore {
     this.departments = newValue;
   }
 
-  setEmployees(newValue: Employee[]) {
+  setEmployees(newValue: ResponseEmployee[]) {
     this.employees = newValue;
   }
   setTaskStatuses(newValue: Status[]) {
@@ -69,6 +69,10 @@ class DataStore {
 
   async fetchTaskInfoPageData(id: number | string) {
     await Promise.all([this.fetchComments(id), this.fetchFullTask(id), this.fetchDepartments(), this.fetchStatuses()]);
+  }
+
+  async fetchCreateTaskPageData() {
+    await Promise.all([this.fetchPriorities(), this.fetchStatuses(), this.fetchEmployees(), this.fetchDepartments()]);
   }
 
   async fetchTasks() {
@@ -98,7 +102,7 @@ class DataStore {
   }
   async fetchEmployees() {
     try {
-      const employees = (await api.get<Employee[]>("/employees")).data;
+      const employees = (await api.get<ResponseEmployee[]>("/employees")).data;
       this.setEmployees(employees);
     } catch (e) {
       console.error(e);
