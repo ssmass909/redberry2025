@@ -29,7 +29,7 @@ const TaskCard = ({ task, borderColor }: TaskCardProps) => {
         <div className={styles.bottom}>
           <AvatarIcon avatarSrc={task.employee.avatar} />
           <div className={styles.comments}>
-            <img className={styles.commentsIcon} src="comments_icon.svg" alt="comments" />
+            <img className={styles.commentsIcon} src="/comments_icon.svg" alt="comments" />
             <span className={styles.commentsCount}>{task.total_comments}</span>
           </div>
         </div>

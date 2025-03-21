@@ -8,23 +8,32 @@ import { useEffect } from "react";
 import { observer } from "mobx-react";
 import AvatarIcon from "../../components/AvatarIcon/AvatarIcon";
 import { abbreviateText, getGeorgianDates } from "../../utils/functions";
+import TaskInfoPageStore from "../../stores/TaskInfoPageStore";
 
 const TaskInfoPage = () => {
   let { id } = useParams();
   if (!id) throw new Error("Task id not present!");
 
   const dataStore = useDataStore();
+  const taskInfoPageStore = new TaskInfoPageStore();
 
   useEffect(() => {
-    dataStore.fetchStatuses();
+    dataStore.fetchTaskInfoPageData(id);
+
+    return () => {
+      dataStore.setComments([]);
+      dataStore.setTask(undefined);
+    };
   }, []);
+
+  if (!dataStore.task) return null;
 
   return (
     <div className={styles.main}>
       <div className={styles.left}>
         <div className={styles.overview}>
           <div className={styles.overview_top}>
-            <Priority priority={{ icon: "", id: -1, name: "საშუალო" }} />
+            <Priority priority={dataStore.task.priority} />
             <Department id={1} name={"დიზაინი"} />
           </div>
           <h1 className={styles.title}>Redberry-ს საიტის ლენდინგის დიზაინი</h1>
@@ -67,7 +76,7 @@ const TaskInfoPage = () => {
                   />
                   <div className={styles.detail_employee_info}>
                     <span className={styles.detail_employee_department}>
-                      {abbreviateText("დიზაინის დეპარტამენტი", 12)}
+                      {abbreviateText("დიზაინის დეპარტამენტი", 25)}
                     </span>
                     <span className={styles.detail_employee_name}>ელაია ბაგრატიონი</span>
                   </div>
@@ -87,7 +96,7 @@ const TaskInfoPage = () => {
         </div>
       </div>
       <div className={styles.right}>
-        <CommentsSection />
+        <CommentsSection taskInfoPageStore={taskInfoPageStore} />
       </div>
     </div>
   );

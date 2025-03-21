@@ -15,7 +15,7 @@ const TasksPage = () => {
   const dataStore = useDataStore();
   useEffect(() => {
     tasksPageStore.setDataStore(dataStore);
-    dataStore.fetchEverything().then(() => tasksPageStore.updateFilterOptions());
+    dataStore.fetchTasksPageData().then(() => tasksPageStore.updateFilterOptions());
   }, []);
 
   return (

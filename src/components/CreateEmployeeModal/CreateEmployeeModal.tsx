@@ -54,7 +54,7 @@ const CreateEmployeeModal = () => {
   return (
     <Modal open={createEmployeeModalStore.modalOpen} close={() => createEmployeeModalStore.setModalOpen(false)}>
       <button className={styles.closeBtn} onClick={() => createEmployeeModalStore.setModalOpen(false)}>
-        <img className={styles.closeIcon} alt="close" src="close_icon.svg" />
+        <img className={styles.closeIcon} alt="close" src="/close_icon.svg" />
       </button>
       <div className={styles.modalContent}>
         <h1 className={styles.title}>თანამშრომლის დამატება</h1>
@@ -90,13 +90,13 @@ const CreateEmployeeModal = () => {
                       (document.getElementById("avatarInput") as HTMLInputElement).value = "";
                     }}
                   >
-                    <img className={styles.removeIcon} src="remove_icon.svg" alt="remove icon" />
+                    <img className={styles.removeIcon} src="/remove_icon.svg" alt="remove icon" />
                   </button>
                 </div>
               ) : (
                 <label htmlFor="avatarInput" className={styles.avatarInputLabel}>
                   <div className={styles.avatarUploadIconContainer}>
-                    <img className={styles.avatarUploadIcon} src="upload_icon.svg" alt="Upload avatar" />
+                    <img className={styles.avatarUploadIcon} src="/upload_icon.svg" alt="Upload avatar" />
                     <span className={styles.uploadAvatarTxt}>ატვირთე ფოტო</span>
                   </div>
                   <input

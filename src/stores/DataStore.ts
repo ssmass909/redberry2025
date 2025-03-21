@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from "mobx";
-import { Task, PriorityType, Department, Employee, Status } from "../types";
+import { Task, PriorityType, Department, Employee, Status, CommentType } from "../types";
 import api from "../utils/api";
 
 class DataStore {
@@ -8,6 +8,8 @@ class DataStore {
   departments: Department[] = [];
   employees: Employee[] = [];
   taskStatuses: Status[] = [];
+  task?: Task;
+  comments: CommentType[] = [];
 
   constructor() {
     makeObservable(this, {
@@ -16,11 +18,15 @@ class DataStore {
       departments: observable,
       employees: observable,
       taskStatuses: observable,
+      task: observable,
+      comments: observable,
       setTasks: action,
       setPriorities: action,
       setDepartments: action,
       setEmployees: action,
       setTaskStatuses: action,
+      setTask: action,
+      setComments: action,
     });
   }
 
@@ -43,7 +49,15 @@ class DataStore {
     this.taskStatuses = newValue;
   }
 
-  async fetchEverything() {
+  setTask(newValue?: Task) {
+    this.task = newValue;
+  }
+
+  setComments(newValue: CommentType[]) {
+    this.comments = newValue;
+  }
+
+  async fetchTasksPageData() {
     await Promise.all([
       this.fetchTasks(),
       this.fetchPriorities(),
@@ -51,6 +65,10 @@ class DataStore {
       this.fetchEmployees(),
       this.fetchStatuses(),
     ]);
+  }
+
+  async fetchTaskInfoPageData(id: number | string) {
+    await Promise.all([this.fetchComments(id), this.fetchFullTask(id), this.fetchDepartments()]);
   }
 
   async fetchTasks() {
@@ -91,6 +109,24 @@ class DataStore {
     try {
       const statuses = (await api.get<Status[]>("/statuses")).data;
       this.setTaskStatuses(statuses);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async fetchFullTask(id: number | string) {
+    try {
+      const task = (await api.get<Task>(`/tasks/${id}`)).data;
+      this.setTask(task);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async fetchComments(id: number | string) {
+    try {
+      const comments = (await api.get<CommentType[]>(`/tasks/${id}/comments`)).data;
+      this.setComments(comments);
     } catch (e) {
       console.error(e);
     }

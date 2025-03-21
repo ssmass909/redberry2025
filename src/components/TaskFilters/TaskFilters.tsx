@@ -21,15 +21,15 @@ const TaskFilters = () => {
       <div className={styles.main}>
         <button onClick={() => onFilterButtonClick("DEPARTMENT")} className={`${styles.filter}`}>
           <span>დეპარტამენტი</span>
-          <img src="down_arrow.svg" />
+          <img src="/down_arrow.svg" />
         </button>
         <button onClick={() => onFilterButtonClick("PRIORITY")} className={`${styles.filter}`}>
           <span>პრიორიტეტი</span>
-          <img src="down_arrow.svg" />
+          <img src="/down_arrow.svg" />
         </button>
         <button onClick={() => onFilterButtonClick("EMPLOYEE")} className={` ${styles.filter}`}>
           <span>თანამშრომელი</span>
-          <img src="down_arrow.svg" />
+          <img src="/down_arrow.svg" />
         </button>
       </div>
       <FilterBody />

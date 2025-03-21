@@ -35,6 +35,16 @@ export interface Task {
   total_comments: number;
 }
 
+export interface CommentType {
+  id: number;
+  text: string;
+  task_id: number;
+  parent_id: number | null;
+  author_avatar: string;
+  author_nickname: string;
+  sub_comments?: CommentType[];
+}
+
 export type ActiveFilter = "DEPARTMENT" | "PRIORITY" | "EMPLOYEE" | null;
 export type FilterOptionType = Partial<Department & Employee & PriorityType> & { id: number; name: string };
 export type TempFilterAction = "APPLY" | "RESET" | "ADD" | "REMOVE" | "REVERSE_APPLY";
