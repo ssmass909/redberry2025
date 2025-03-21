@@ -13,10 +13,10 @@ export const TasksPageStoreContext = createContext(tasksPageStore);
 
 const TasksPage = () => {
   const dataStore = useDataStore();
-  const columnColors = useMemo(() => generateRandomColors(dataStore.taskStatuses.length), [dataStore.taskStatuses]);
+  const departmentColors = useMemo(() => generateRandomColors(dataStore.departments.length), [dataStore.departments]);
   const statusColors = useMemo(
-    () => generateRandomColors(dataStore.departments.length),
-    [dataStore.departments.length]
+    () => generateRandomColors(dataStore.taskStatuses.length),
+    [dataStore.taskStatuses.length]
   );
 
   useEffect(() => {
@@ -33,6 +33,7 @@ const TasksPage = () => {
         <div className={styles.tasksContainer}>
           {dataStore.taskStatuses.map((status, i) => (
             <TaskColumn
+              departmentColors={departmentColors}
               key={status.name}
               columnColor={statusColors[i]}
               columnName={status.name}
