@@ -34,7 +34,6 @@ const CreateEmployeeModal = () => {
   });
 
   const avatar = watch("avatar")?.[0];
-  console.log(errors);
 
   useEffect(() => {
     if (!avatar) return;

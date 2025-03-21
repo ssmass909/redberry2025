@@ -34,11 +34,8 @@ const CreateTaskPage = () => {
   }, []);
 
   const onSubmit: SubmitHandler<TaskFormData> = async (formData) => {
-    console.log("Form data:", formData);
-
     const response = await api.post("/tasks", formData);
     const { data } = response;
-    console.log(data);
   };
 
   return (
