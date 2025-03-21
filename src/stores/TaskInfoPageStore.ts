@@ -14,6 +14,7 @@ class TaskInfoPageStore {
     makeObservable(this, {
       comment: observable,
       replyingTo: observable,
+      comments: observable,
       setComment: action,
       setReplyingTo: action,
       addComment: action,
@@ -45,6 +46,12 @@ class TaskInfoPageStore {
         parent_id: this.replyingTo,
         text: this.comment,
       });
+
+      if (!!this.replyingTo) {
+        const comment = this.comments.filter((com) => com.id === this.replyingTo)[0];
+        comment.sub_comments?.unshift(response.data);
+        return;
+      }
       this.comments.unshift(response.data);
     } catch (e) {
       console.error(e);

@@ -67,16 +67,14 @@ const TaskInfoPage = () => {
               </div>
               <div className={styles.detailInfo}>
                 <div className={styles.detail_employee}>
-                  <AvatarIcon
-                    avatarSrc={
-                      "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
-                    }
-                  />
+                  <AvatarIcon avatarSrc={dataStore.task.employee.avatar} />
                   <div className={styles.detail_employee_info}>
                     <span className={styles.detail_employee_department}>
-                      {abbreviateText("დიზაინის დეპარტამენტი", 25)}
+                      {abbreviateText(dataStore.task.department.name, 25)}
                     </span>
-                    <span className={styles.detail_employee_name}>ელაია ბაგრატიონი</span>
+                    <span
+                      className={styles.detail_employee_name}
+                    >{`${dataStore.task.employee.name} ${dataStore.task.employee.surname}`}</span>
                   </div>
                 </div>
               </div>

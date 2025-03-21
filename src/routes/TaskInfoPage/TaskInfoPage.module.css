@@ -78,6 +78,15 @@
 }
 
 .detail_taskStatus {
+  border: 1px solid #ced4da;
+  padding: 14px;
+  height: 45px;
+  width: 259px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 300;
 }
 
 .detail_employee {
