@@ -10,11 +10,22 @@ export interface CommentsSectionProps {
 
 const CommentsSection = ({ taskInfoPageStore }: CommentsSectionProps) => {
   const dataStore = useDataStore();
+
   return (
     <div className={styles.main}>
       <div className={styles.textareaContainer}>
-        <textarea className={styles.textarea} placeholder="დაწერე კომენტარი" />
-        <button className={styles.commentBtn}>დააკომენტარე</button>
+        <textarea
+          onChange={(e) => taskInfoPageStore.setComment(e.target.value)}
+          className={styles.textarea}
+          placeholder={
+            !taskInfoPageStore.replyingTo
+              ? "დაწერე კომენტარი"
+              : `უპასუხე ${taskInfoPageStore.replyingToComment?.author_nickname}-ს`
+          }
+        />
+        <button onClick={() => taskInfoPageStore.addComment()} className={styles.commentBtn}>
+          დააკომენტარე
+        </button>
       </div>
       <div className={styles.titleContainer}>
         <h2 className={styles.title}>კომენტარები</h2>
@@ -22,7 +33,13 @@ const CommentsSection = ({ taskInfoPageStore }: CommentsSectionProps) => {
       </div>
       <div className={styles.comments}>
         {dataStore.comments.map((comment) => (
-          <Comment key={comment.id} comment={comment} />
+          <Comment
+            onClick={(id: number) => {
+              taskInfoPageStore.setReplyingTo(id);
+            }}
+            key={comment.id}
+            comment={comment}
+          />
         ))}
       </div>
     </div>

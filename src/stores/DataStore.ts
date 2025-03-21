@@ -68,7 +68,7 @@ class DataStore {
   }
 
   async fetchTaskInfoPageData(id: number | string) {
-    await Promise.all([this.fetchComments(id), this.fetchFullTask(id), this.fetchDepartments()]);
+    await Promise.all([this.fetchComments(id), this.fetchFullTask(id), this.fetchDepartments(), this.fetchStatuses()]);
   }
 
   async fetchTasks() {

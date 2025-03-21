@@ -4,9 +4,14 @@ import styles from "./Comment.module.css";
 
 interface CommentProps {
   comment: CommentType;
+  onClick?: (id: number) => void;
 }
 
-const Comment = ({ comment }: CommentProps) => {
+const Comment = ({ comment, onClick }: CommentProps) => {
+  const handleReplyClick = () => {
+    if (onClick) onClick(comment.id);
+  };
+
   return (
     <>
       <div className={styles.main} style={{ marginLeft: !!comment.parent_id ? "53px" : undefined }}>
@@ -16,7 +21,7 @@ const Comment = ({ comment }: CommentProps) => {
         <div className={styles.right}>
           <span className={styles.name}>{comment.author_nickname}</span>
           <p className={styles.comment}>{comment.text}</p>
-          <button className={styles.btn}>
+          <button onClick={handleReplyClick} className={styles.btn}>
             <img className={styles.replyIcon} src="/reply_icon.svg" alt="reply icon" />
             უპასუხე
           </button>

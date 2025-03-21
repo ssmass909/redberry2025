@@ -15,8 +15,7 @@ const TaskInfoPage = () => {
   if (!id) throw new Error("Task id not present!");
 
   const dataStore = useDataStore();
-  const taskInfoPageStore = new TaskInfoPageStore();
-
+  const taskInfoPageStore = new TaskInfoPageStore(dataStore.task, dataStore.comments);
   useEffect(() => {
     dataStore.fetchTaskInfoPageData(id);
 
@@ -36,13 +35,9 @@ const TaskInfoPage = () => {
             <Priority priority={dataStore.task.priority} />
             <Department id={1} name={"დიზაინი"} />
           </div>
-          <h1 className={styles.title}>Redberry-ს საიტის ლენდინგის დიზაინი</h1>
+          <h1 className={styles.title}>{dataStore.task.name}</h1>
         </div>
-        <div className={styles.desciption}>
-          მიზანია რომ შეიქმნას თანამედროვე, სუფთა და ფუნქციონალური დიზაინი, რომელიც უზრუნველყოფს მარტივ ნავიგაციას და
-          მკაფიო ინფორმაციის გადაცემას. დიზაინი უნდა იყოს ადაპტირებადი (responsive), გამორჩეული ვიზუალით, მინიმალისტური
-          სტილით და ნათელი ტიპოგრაფიით.
-        </div>
+        <div className={styles.desciption}>{dataStore.task.description}</div>
         <div className={styles.details}>
           <h3 className={styles.detailsTitle}>დავალების დეტალები</h3>
           <div className={styles.detailsContainer}>
@@ -52,10 +47,13 @@ const TaskInfoPage = () => {
                 <span className={styles.detailTitle}>სტატუსი</span>
               </div>
               <div className={styles.detailInfo}>
-                <select className={styles.detail_taskStatus}>
+                <select
+                  onChange={(e) => taskInfoPageStore.changeTaskStatus(e.target.value)}
+                  className={styles.detail_taskStatus}
+                >
                   <option value=""></option>
                   {dataStore.taskStatuses.map((status) => (
-                    <option key={status.id} value={status.id}>
+                    <option selected={dataStore.task?.status.id === status.id} key={status.id} value={status.id}>
                       {status.name}
                     </option>
                   ))}
