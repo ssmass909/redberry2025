@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import useOutsideClick from "../../utils/useOutsideClick";
 import styles from "./Modal.module.css";
 
@@ -12,6 +12,14 @@ const Modal = ({ open, children, close }: ModalProps) => {
   const modalBodyRef = useOutsideClick<HTMLDivElement>(() => {
     close();
   });
+
+  useEffect(() => {
+    if (open) document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [open]);
 
   if (!open) return null;
   return (

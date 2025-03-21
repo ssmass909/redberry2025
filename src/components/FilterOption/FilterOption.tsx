@@ -25,6 +25,7 @@ const FilterOption = ({ filterOption }: FilterOptionProps) => {
           .includes(filterOption.id)}
         onChange={(e) => onChange(e.target.checked)}
         type="checkbox"
+        className={styles.input}
       />
       <span className={styles.checkmark}></span>
       {filterOption.avatar && <AvatarIcon avatarSrc={filterOption.avatar} />}

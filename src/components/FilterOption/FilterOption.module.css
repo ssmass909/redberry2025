@@ -2,6 +2,7 @@
   display: flex;
   gap: 15px;
   height: min-content;
+  overflow: none;
 }
 
 .title {
@@ -11,7 +12,7 @@
   line-height: 100%;
 }
 
-input {
+.input {
   cursor: pointer;
   accent-color: #8338ec;
   appearance: none;
@@ -21,7 +22,7 @@ input {
   border-radius: 6px;
 }
 
-input:checked {
+.input:checked {
   background-image: url("checkmark.svg");
   background-repeat: no-repeat;
   background-position: center;
